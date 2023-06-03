@@ -1,0 +1,1 @@
+basic authentication, managing user data and used for authentication.
