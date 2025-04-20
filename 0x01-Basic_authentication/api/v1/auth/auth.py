@@ -8,6 +8,7 @@ from typing import List, TypeVar
 
 class Auth:
     """Template class for all authentication systems"""
+
     def require_auth(self, path: str, excluded_paths:  List[str]) -> bool:
         """ Checks if the path requires authentication
         Args:
@@ -23,8 +24,14 @@ class Auth:
             path += '/'
 
         for excluded_path in excluded_paths:
-            if excluded_path.endswith('/') and path == excluded_path:
-                return False
+            if excluded_path.endswith('*'):
+                if path.startswith(excluded_path[:-1]):
+                    return False
+            else:
+                if not excluded_path.endswith('/'):
+                    path == excluded_path
+                if path == excluded_path:
+                    return False
         return True
 
     def authorization_header(self, request=None) -> str:
