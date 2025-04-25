@@ -53,6 +53,7 @@ class SessionExpAuth(SessionAuth):
         if not created_at:
             return None
 
+        # Check if session is expired
         if created_at + timedelta(
                 seconds=self.session_duration) < datetime.now():
             return None
