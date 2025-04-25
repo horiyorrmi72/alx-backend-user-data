@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+"""
+user session in db
+"""
 from models.base import Base
 from datetime import datetime
 
