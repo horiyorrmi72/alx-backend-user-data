@@ -35,7 +35,8 @@ def session_login():
     return response
 
 
-@app_views.route('/auth_session/logout', methods=['DELETE'], strict_slashes=False)
+@app_views.route('/auth_session/logout',
+                 methods=['DELETE'], strict_slashes=False)
 def session_logout():
     """Logs user out of session by deleting the session"""
     if not auth.destroy_session(request):
