@@ -16,13 +16,12 @@ class SessionDBAuth(SessionExpAuth):
         """
         Create and store a session in the database.
         """
+        if user_id is None:
+            return None
         session_id = super().create_session(user_id)
         if session_id:
-            # Store the session in the database
-            UserSession(
-                user_id=user_id,
-                session_id=session_id
-            ).save()  # Assuming save() method exists on Base class
+            user_session = UserSession(user_id=user_id, session_id=session_id)
+            user_session.save()
         return session_id
 
     def user_id_for_session_id(self, session_id=None):
@@ -31,10 +30,11 @@ class SessionDBAuth(SessionExpAuth):
         """
         if session_id is None:
             return None
-        # Assuming `get()` method works as expected
         session = UserSession.get(session_id=session_id)
         if not session:
             return None
+        if self.session_duration is None or self.session_duration == 0:
+            return session.user_id
         if session.created_at + timedelta(
                 seconds=self.session_duration) < datetime.now():
             return None
