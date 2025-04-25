@@ -11,6 +11,9 @@ Base = declarative_base()
 
 
 class User(Base):
+    """
+    User model for a user authentication setup.
+    """
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True)
