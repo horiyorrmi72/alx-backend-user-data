@@ -4,7 +4,7 @@ This module handles session authentication with expiration.
 """
 from api.v1.auth.session_exp_auth import SessionExpAuth
 from models.user_session import UserSession
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 
 class SessionDBAuth(SessionExpAuth):
@@ -35,8 +35,8 @@ class SessionDBAuth(SessionExpAuth):
         session = UserSession.get(session_id=session_id)
         if not session:
             return None
-        if session.created_at + \
-                (seconds=self.session_duration) < datetime.now():
+        if session.created_at + timedelta(
+                seconds=self.session_duration) < datetime.now():
             return None
         return session.user_id
 
