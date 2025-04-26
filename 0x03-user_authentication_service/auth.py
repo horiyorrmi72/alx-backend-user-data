@@ -16,11 +16,11 @@ def _hash_password(password: str) -> str:
     return hash_password.decode('utf-8')
 
 # @staticmethod
-    def _generate_uuid() -> str:
-        """this generate and return a string representation
-        of a new uuid
-        """
-        return str(uuid4())
+def _generate_uuid() -> str:
+    """this generate and return a string representation
+    of a new uuid
+    """
+    return str(uuid4())
 
 
 class Auth:
