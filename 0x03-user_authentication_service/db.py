@@ -54,10 +54,8 @@ class DB:
           and return the updated User instance
         """
         user = self.find_user_by(id=user_id)
-        if not user:
-            raise InvalidRequestError
         for key, val in kwargs.items():
             if not hasattr(user, key):
-                raise InvalidRequestError
+                raise ValueError(f"Invalid attribute: {key}")
             setattr(user, key, val)
         self._session.commit()
