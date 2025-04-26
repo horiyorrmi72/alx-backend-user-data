@@ -52,3 +52,15 @@ class Auth:
                                       user.hashed_password.encode('utf-8'))
         except NoResultFound:
             return False
+
+    def create_session(self, email: str) -> str:
+        """check for user with the provided email
+        and generate new session id for user
+        """
+        try:
+            user = self._db.find_user_by(email=email)
+            if user:
+                session_id = _generate_uuid()
+                return session_id
+        except NoResultFound:
+            return
